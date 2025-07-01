@@ -4,6 +4,6 @@ import { getPopularBooks, searchBook } from "../controllers/bookController";
 const userRouter = Router();
 
 userRouter.get("/", getPopularBooks);
-userRouter.get("/", searchBook);
+userRouter.get("/search", searchBook);
 
 export default userRouter;

@@ -5,10 +5,23 @@ const API_BASE = "https://openlibrary.org";
 
 export const getPopularBooks = async (req: Request, res: Response) => {
   try {
+    const page = parseInt(req.query.page as string) || 0;
+    const limit = parseInt(req.query.limit as string) || 12;
+    const query = (req.query.q as string) || "bestseller";
+
+    // Calculate offset for pagination
+    const offset = page * limit;
+
     const response = await axios.get(
-      `${API_BASE}/subjects/mystery.json?limit=10`
+      `${API_BASE}/search.json?q=${query}&limit=${limit}&offset=${offset}`
     );
-    res.json(response.data.works);
+    res.json({
+      books: response.data.docs,
+      totalFound: response.data.numFound,
+      page: page,
+      limit: limit,
+      hasMore: offset + limit < response.data.numFound,
+    });
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch books." });
   }
@@ -16,9 +29,22 @@ export const getPopularBooks = async (req: Request, res: Response) => {
 
 export const searchBook = async (req: Request, res: Response) => {
   try {
+    const page = parseInt(req.query.page as string) || 0;
+    const limit = parseInt(req.query.limit as string) || 12;
+    const query = req.query.q as string;
+    const offset = page * limit;
+
     const response = await axios.get(
-      `${API_BASE}/search.json?q=${req.body.query}`
+      `${API_BASE}/search.json?q=${query}&limit=${limit}&offset=${offset}`
     );
+
+    res.json({
+      books: response.data.docs,
+      totalFound: response.data.numFound,
+      page: page,
+      limit: limit,
+      hasMore: offset + limit < response.data.numFound,
+    });
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch search request." });
   }
