@@ -14,7 +14,9 @@ export default function LandingPage() {
 
   useDebounce(() => setDebouncedQuery(query), 500, [query]);
 
+  // main function to fetch popular books on landing page
   const fetchPopular = async (pageNum = 0, searchQuery = "") => {
+    // Prevent multiple concurrent requests
     if (loading) return;
     setLoading(true);
 
@@ -23,6 +25,7 @@ export default function LandingPage() {
       const newBooks = response.data.books || [];
 
       if (pageNum === 0) {
+        // reset list if first page (on first load or reloads)
         setBookList(newBooks);
       } else {
         setBookList((prev) => [...prev, ...newBooks]);
@@ -33,6 +36,7 @@ export default function LandingPage() {
     } catch (error) {
       console.error("Failed to fetch popular books", error);
     } finally {
+      //set loading to false when request is finished
       setLoading(false);
     }
   };
@@ -49,22 +53,26 @@ export default function LandingPage() {
     }
   }, [hasMore, loading]);
 
+  // Fetch books upon first load
   useEffect(() => {
     fetchPopular(0);
   }, []);
 
+  // Handle debounced query for search
   useEffect(() => {
     if (debouncedQuery !== query) return;
     setPage(0);
     fetchPopular(0, debouncedQuery);
   }, [debouncedQuery]);
 
+  // handle pagination when page number changes
   useEffect(() => {
     if (page > 0) {
       fetchPopular(page, debouncedQuery);
     }
   }, [page]);
 
+  // scroll event listener
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);

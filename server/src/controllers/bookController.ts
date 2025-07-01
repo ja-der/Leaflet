@@ -12,6 +12,7 @@ export const getPopularBooks = async (req: Request, res: Response) => {
     // Calculate offset for pagination
     const offset = page * limit;
 
+    // call query with pagination
     const response = await axios.get(
       `${API_BASE}/search.json?q=${query}&limit=${limit}&offset=${offset}`
     );
