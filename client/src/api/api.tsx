@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// change to non-hard coded
+// change to non-hard coded in production
 const API_BASE = "http://localhost:3001";
 
 export const fetchBooks = (page = 0, limit = 12, query = "") => {
@@ -21,6 +21,10 @@ export const searchBooks = (query: string, page = 0, limit = 12) => {
   });
 
   return axios.get(`${API_BASE}/books/search?${params}`);
+};
+
+export const fetchBookById = (id: string) => {
+  return axios.get(`${API_BASE}/books/${id}`);
 };
 
 // export const fetchBookById = (id: string) =>

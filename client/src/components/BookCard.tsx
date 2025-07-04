@@ -1,5 +1,6 @@
 // components/BookCard.tsx
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 type Book = {
   key: string;
@@ -15,8 +16,18 @@ type Author = {
 };
 
 export default function BookCard({ book }: { book: Book }) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    const bookId = book.key.split("/").pop();
+    router.push(`/book/${bookId}`);
+  };
+
   return (
-    <Card className="w-full hover:shadow-lg transition">
+    <Card
+      className="w-full hover:shadow-lg transition cursor-pointer"
+      onClick={handleClick}
+    >
       <CardHeader className="flex flex-col items-center">
         {book.cover_i ? (
           <img

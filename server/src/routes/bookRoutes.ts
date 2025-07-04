@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { getPopularBooks, searchBook } from "../controllers/bookController";
+import {
+  getPopularBooks,
+  searchBook,
+  getBookById,
+} from "../controllers/bookController";
 
-const userRouter = Router();
+const bookRouter = Router();
 
-userRouter.get("/", getPopularBooks);
-userRouter.get("/search", searchBook);
+bookRouter.get("/", getPopularBooks);
+bookRouter.get("/search", searchBook);
+bookRouter.get("/:id", getBookById);
 
-export default userRouter;
+export default bookRouter;

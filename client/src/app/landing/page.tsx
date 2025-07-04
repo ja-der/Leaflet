@@ -90,13 +90,13 @@ export default function LandingPage() {
         <p className="text-gray-600 mb-8 max-w-xl">
           Start typing to search, or scroll to discover more books
         </p>
-        <div className="w-full max-w-xl">
+        <div className="w-full max-w-xl ">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Enter a book title, author, or keyword..."
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
           />
         </div>
       </div>

@@ -50,3 +50,16 @@ export const searchBook = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to fetch search request." });
   }
 };
+
+export const getBookById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    console.log("Fetching book with ID:", id);
+
+    const response = await axios.get(`${API_BASE}/works/${id}.json`);
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching book:", error);
+    res.status(500).json({ error: "Failed to fetch book details." });
+  }
+};
