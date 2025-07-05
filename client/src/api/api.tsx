@@ -27,15 +27,31 @@ export const fetchBookById = (id: string) => {
   return axios.get(`${API_BASE}/books/${id}`);
 };
 
-// export const fetchBookById = (id: string) =>
-//   axios.get(`${API_BASE}/books/${id}`);
+// user favourites
+export const getFavorites = () => axios.get(`${API_BASE}/user/favorites`);
 
-// export const getFavorites = () => axios.get(`${API_BASE}/favorites`);
-// export const addFavorite = (book: { id: string; title: string }) =>
-//   axios.post(`${API_BASE}/favorites`, book);
-// export const removeFavorite = (id: string) =>
-//   axios.delete(`${API_BASE}/favorites/${id}`);
-// export const getFavoriteById = (id: string) =>
-//   axios.get(`${API_BASE}/favorites/${id}`);
-// export const addReview = (id: string, review: string) =>
-//   axios.post(`${API_BASE}/favorites/${id}/review`, { review });
+export const addFavorite = (bookId: string, bookData: any) =>
+  axios.post(`${API_BASE}/user/favorites`, { bookId, bookData });
+
+export const removeFavorite = (bookId: string) =>
+  axios.delete(`${API_BASE}/user/favorites/${bookId}`);
+
+export const checkFavorite = (bookId: string) =>
+  axios.get(`${API_BASE}/user/favorites/${bookId}`);
+
+// user reviews
+export const addReview = (
+  bookId: string,
+  rating: number,
+  reviewText: string,
+  bookData: any
+) =>
+  axios.post(`${API_BASE}/user/reviews`, {
+    bookId,
+    rating,
+    reviewText,
+    bookData,
+  });
+
+export const getBookReviews = (bookId: string) =>
+  axios.get(`${API_BASE}/user/reviews/${bookId}`);

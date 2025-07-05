@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { fetchBookById } from "../../../api/api";
+import FavoriteButton from "../../../components/FavoriteButton";
+import ReviewSection from "../../../components/ReviewSection";
 
 interface BookDetails {
   title: string;
@@ -86,17 +88,25 @@ export default function BookDetailsPage() {
       ? `https://covers.openlibrary.org/b/id/${book.covers[0]}-L.jpg`
       : null;
 
+  const bookId = params.id as string;
+  const bookData = {
+    title: book.title,
+    author: "Unknown Author", // You might want to fetch author names
+    coverUrl: coverUrl || undefined,
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header with back button */}
-        <div className="mb-6">
+        <div className="mb-6 flex justify-between items-center">
           <button
             onClick={() => router.back()}
             className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
             ← Back to Books
           </button>
+          <FavoriteButton bookId={bookId} bookData={bookData} />
         </div>
 
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -226,6 +236,9 @@ export default function BookDetailsPage() {
                 )}
               </div>
             </div>
+
+            {/* Reviews Section */}
+            <ReviewSection bookId={bookId} bookData={bookData} />
           </div>
         </div>
       </div>
