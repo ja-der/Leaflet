@@ -35,7 +35,7 @@ export default function FavoriteButton({
   }, [bookId, checkIsFavorited]);
 
   const handleToggleFavorite = async (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent triggering parent click events
+    e.stopPropagation();
     setLoading(true);
 
     try {
@@ -57,11 +57,16 @@ export default function FavoriteButton({
     <button
       onClick={handleToggleFavorite}
       disabled={loading}
-      className={`p-2 rounded-full transition-colors ${
-        isFavorited
-          ? "text-red-500 hover:text-red-600"
-          : "text-gray-400 hover:text-red-500"
-      } ${loading ? "opacity-50 cursor-not-allowed" : ""} ${className}`}
+      className={`
+        p-3 rounded-full backdrop-blur-lg transition-all duration-200 
+        ${
+          isFavorited
+            ? "bg-red-500/90 text-white shadow-lg shadow-red-500/25"
+            : "bg-black/50 text-white hover:bg-red-500/90"
+        } 
+        ${loading ? "opacity-50 cursor-not-allowed" : "hover:scale-110"} 
+        ${className}
+      `}
       title={isFavorited ? "Remove from favorites" : "Add to favorites"}
     >
       <Heart className={`w-5 h-5 ${isFavorited ? "fill-current" : ""}`} />

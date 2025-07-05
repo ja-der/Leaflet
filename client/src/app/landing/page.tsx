@@ -15,7 +15,11 @@ export default function LandingPage() {
   useDebounce(() => setDebouncedQuery(query), 500, [query]);
 
   // main function to fetch popular books on landing page
-  const fetchPopular = async (pageNum = 0, searchQuery = "") => {
+  const fetchPopular = async (
+    pageNum = 0,
+    searchQuery = "",
+    shouldScroll = false
+  ) => {
     // Prevent multiple concurrent requests
     if (loading) return;
     setLoading(true);
@@ -31,6 +35,14 @@ export default function LandingPage() {
         setBookList((prev) => [...prev, ...newBooks]);
       }
 
+      // Only scroll if explicitly requested (when user searches)
+      if (shouldScroll) {
+        window.scrollTo({
+          top: 600,
+          behavior: "smooth",
+        });
+      }
+
       // Check if we have more books
       setHasMore(newBooks.length > 0);
     } catch (error) {
@@ -40,6 +52,26 @@ export default function LandingPage() {
       setLoading(false);
     }
   };
+
+  // Update the useEffect for debounced query to include scroll parameter
+  useEffect(() => {
+    if (debouncedQuery !== query) return;
+    setPage(0);
+    // Only scroll if there's actually a search query
+    fetchPopular(0, debouncedQuery, debouncedQuery.length > 0);
+  }, [debouncedQuery]);
+
+  // Keep the initial load without scrolling
+  useEffect(() => {
+    fetchPopular(0);
+  }, []);
+
+  // Keep pagination without scrolling
+  useEffect(() => {
+    if (page > 0) {
+      fetchPopular(page, debouncedQuery, false);
+    }
+  }, [page]);
 
   // Infinite scroll handler
   const handleScroll = useCallback(() => {
@@ -96,7 +128,7 @@ export default function LandingPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Enter a book title, author, or keyword..."
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
+            className="text-gray-800 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
           />
         </div>
       </div>
