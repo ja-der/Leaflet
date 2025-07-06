@@ -63,7 +63,7 @@ export default function Navigation() {
               <Link
                 href="/"
                 className={`flex items-center space-x-2 px-4 py-3 rounded-xl transition-all ${
-                  isActive("/")s
+                  isActive("/")
                     ? "bg-white text-black"
                     : "text-gray-300 hover:text-white hover:bg-gray-800"
                 }`}
