@@ -1,0 +1,33 @@
+# using github actions
+
+name: backend ECS deployment
+
+on:
+  push:
+    paths:
+      - "server/**"
+      - ".github/workflows/backend.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+
+      - name: "Build Docker Image"
+        run: |
+          docker build -t books-backend ../server
+
+      - name: "Push Docker Image"
+        run: |
+          docker tag
+          docker push
+
+      - name: "Deploy to ECS"
+        run: |
+          aws ecs update-service
