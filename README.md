@@ -1,12 +1,12 @@
-# 📚 Leaflet - Full-Stack Book Discovery Platform
+# Leaflet - Full-Stack Book Discovery Platform
 
 A full-fledged application for discovering new books, favoriting, and ranking books that you have already read. It's a library and a tracker all-in-one!
 
-### 🎬 Demo
+### Demo
 
 ![Demo of the app](assets/demo.gif)
 
-## 🚀 Main Features
+## Main Features
 
 ### Discover New Books
 
@@ -20,7 +20,7 @@ A full-fledged application for discovering new books, favoriting, and ranking bo
 - **MongoDB Integration**: Mongoose ODM with schema design and indexing
 - **Constraints**: Preventing duplicate favorites and reviews per user
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Next.js** with App Router and TypeScript
 - **Tailwind CSS**
@@ -30,8 +30,6 @@ A full-fledged application for discovering new books, favoriting, and ranking bo
 - **TypeScript** for type safety
 - **MongoDB** with Mongoose ODM
 - **Axios** for HTTP client operations
-
-## 🎯 Design Considerations
 
 ### Infinite Scroll
 
@@ -83,7 +81,7 @@ npm install
 npm run dev
 ```
 
-## 📈 To-Do
+## To-Do
 
 - Finish user authentication with JWT tokens
 - Finish deployment
